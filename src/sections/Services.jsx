@@ -14,7 +14,7 @@ function Services() {
         {services.map((service) => {
           const Icon = service.icon;
           return (
-            <div className="col-12 col-sm-6 col-lg-3" key={service.title}>
+            <div className="col-12 col-sm-6 col-lg-4" key={service.title}>
               <div className="service-card h-100">
                 <div className="service-icon">
                   <Icon size={24} />

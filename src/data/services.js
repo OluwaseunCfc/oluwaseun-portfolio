@@ -1,29 +1,41 @@
-import { FiCode, FiSmartphone, FiPenTool, FiServer } from 'react-icons/fi';
+import { FiCode, FiSmartphone, FiPenTool, FiSearch, FiSettings, FiServer } from 'react-icons/fi';
 
 const services = [
   {
     icon: FiCode,
-    title: 'Web Development',
+    title: 'Website Design & Development',
     description:
-      'Building fast, scalable websites and web apps using React, Django, and modern tooling.',
+      'Designing and building modern, functional, and high-performing websites tailored to your goals.',
   },
   {
     icon: FiSmartphone,
-    title: 'Mobile-Responsive Design',
+    title: 'Responsive UI/UX',
     description:
-      'Ensuring every project looks and works flawlessly across phones, tablets, and desktops.',
+      'Creating intuitive and responsive interfaces that provide a smooth experience across all devices.',
   },
   {
     icon: FiPenTool,
-    title: 'UI/UX Consulting',
+    title: 'Graphic Design',
     description:
-      'Designing clean, intuitive interfaces that keep users engaged and improve conversions.',
+      'Creating clean and engaging visual designs that strengthen your brand and communicate your ideas effectively.',
+  },
+  {
+    icon: FiSearch,
+    title: 'SEO Optimization',
+    description:
+      'Optimizing websites to improve search visibility, attract the right audience and increase organic traffic.',
+  },
+  {
+    icon: FiSettings,
+    title: 'Website Management',
+    description:
+      'Keeping your website updated, secure, optimized and running smoothly over time.',
   },
   {
     icon: FiServer,
-    title: 'Backend & API Development',
+    title: 'Hosting & Deployment',
     description:
-      'Architecting secure, well-structured backends and APIs with Django and MySQL.',
+      'Setting up reliable hosting and deploying websites for a smooth, secure and accessible online experience.',
   },
 ];
 
