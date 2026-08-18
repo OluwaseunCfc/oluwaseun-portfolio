@@ -9,7 +9,7 @@ function Hero() {
         <img src={profileImage} alt="Oluwaseun Adebola Adeyelu" />
       </div>
 
-      <h1 className="hero-name">Oluwaseun Adebola Adeyelu</h1>
+      <h1 className="hero-name">Oluwaseun Adebola </h1>
       <h2 className="hero-title">Full-Stack Developer &amp; IT Consultant</h2>
 
       <p className="hero-location d-flex align-items-center justify-content-center gap-2">

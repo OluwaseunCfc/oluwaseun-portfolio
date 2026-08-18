@@ -433,7 +433,8 @@ body {
 
 .toolbox-card p {
   font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
+  text-align: center;
+  font-size: 1rem;
   color: var(--color-text-muted);
   margin: 0;
 }
