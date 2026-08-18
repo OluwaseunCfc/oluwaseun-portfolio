@@ -353,3 +353,57 @@ body {
   color: var(--color-text-muted);
   margin: 0;
 }
+
+/* ===== Services ===== */
+.services-section {
+  padding: 5rem 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.section-subheading {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  margin-top: 0.5rem;
+}
+
+.service-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 2rem 1.5rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.service-card:hover {
+  border-color: var(--color-emerald);
+  transform: translateY(-4px);
+}
+
+.service-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.5rem;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--color-emerald);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.service-card h3 {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+}
+
+.service-card p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
