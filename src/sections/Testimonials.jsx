@@ -47,7 +47,11 @@ function Testimonials() {
 
           <div className="testimonial-author">
             <div className="testimonial-avatar">
-              {getInitials(testimonial.name)}
+              {testimonial.image ? (
+                <img src={testimonial.image} alt={testimonial.name} />
+              ) : (
+                getInitials(testimonial.name)
+              )}
             </div>
             <h3>{testimonial.name}</h3>
             <p className="testimonial-role">{testimonial.role}</p>
