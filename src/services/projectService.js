@@ -1,7 +1,7 @@
 import portfolioImg from '../assets/portfolio snapshot.png';
 import gorideImg from '../assets/Goride snapshot.png';
 
-const API_BASE_URL = 'http://localhost:8000/api'; // update once Django is live
+// const API_BASE_URL = 'http://localhost:8000/api'; // update once Django is live
 
 const mockProjects = [
   {

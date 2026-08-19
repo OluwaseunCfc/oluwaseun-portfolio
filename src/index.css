@@ -506,3 +506,135 @@ body {
   font-size: 0.8rem;
   flex: 1;
 }
+
+/* ===== Testimonials ===== */
+.testimonials-section {
+  padding: 5rem 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.testimonial-carousel {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.testimonial-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.testimonial-quote-icon {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  font-size: 2.5rem;
+  color: rgba(16, 185, 129, 0.15);
+}
+
+.testimonial-text {
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--color-text);
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2rem;
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.testimonial-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--color-emerald);
+  color: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.testimonial-author h3 {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.testimonial-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.testimonial-stars {
+  display: flex;
+  gap: 0.25rem;
+  color: var(--color-emerald);
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+  z-index: 2;
+}
+
+.carousel-arrow:hover {
+  color: var(--color-emerald);
+}
+
+.carousel-arrow-left {
+  left: 0;
+}
+
+.carousel-arrow-right {
+  right: 0;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-border);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.2s ease;
+}
+
+.carousel-dot.active {
+  background-color: var(--color-emerald);
+}
