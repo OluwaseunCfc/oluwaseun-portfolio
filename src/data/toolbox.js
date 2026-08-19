@@ -76,7 +76,7 @@ const toolbox = [
   {
     icon: SiDjango,
     name: 'Django',
-    color: '#092E20',
+    color: '#01cc7e',
     description: 'Building secure and scalable web applications with Python.',
   },
   {

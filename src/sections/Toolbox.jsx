@@ -14,7 +14,7 @@ function Toolbox() {
         {toolbox.map((tool) => {
           const Icon = tool.icon;
           return (
-            <div className="col-12 col-md-6 col-lg-4" key={tool.name}>
+            <div className="col-12 col-md-6 col-lg-3" key={tool.name}>
               <div className="toolbox-card h-100">
                 <Icon size={40} color={tool.color} className="mb-3" />
                 <h3>{tool.name}</h3>
