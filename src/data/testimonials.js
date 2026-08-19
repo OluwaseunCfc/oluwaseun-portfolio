@@ -1,6 +1,6 @@
-import olusolaImg from '../assets/olusola.png';
-import chidinmaImg from '../assets/chidinma.png';
-import tundeImg from '../assets/tunde.png';
+import olusolaImg from '../assets/olusola.jpg'
+import chidinmaImg from '../assets/chidinma.png'
+import tundeImg from '../assets/tunde.png'
 
 const testimonials = [
   {
