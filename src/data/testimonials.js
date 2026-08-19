@@ -1,6 +1,6 @@
-import olusolaImg from '../assets/olusola.jpg';
-import chidinmaImg from '../assets/chidinma.jpg';
-import tundeImg from '../assets/tunde.jpg';
+import olusolaImg from '../assets/olusola.png';
+import chidinmaImg from '../assets/chidinma.png';
+import tundeImg from '../assets/tunde.png';
 
 const testimonials = [
   {
@@ -23,7 +23,7 @@ const testimonials = [
   },
   {
     id: 3,
-    name: 'Tunde Bakare',
+    name: 'Nwachukwu Maryjane',
     role: 'Proprietress, Janefrancis International Schools',
     quote:
       "We've relied on Oluwaseun for our school's digital documents and web needs for months now. He's reliable, quick to respond, and always delivers clean, professional work.",
