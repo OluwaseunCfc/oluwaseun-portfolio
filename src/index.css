@@ -644,4 +644,109 @@ body {
 
 .carousel-dot.active {
   background-color: var(--color-emerald);
-} 
+}
+
+/* Mobile adjustments */
+@media (max-width: 576px) {
+  .testimonial-carousel {
+    padding: 0 2rem;
+  }
+
+  .testimonial-card {
+    padding: 2rem 1.25rem;
+  }
+
+  .carousel-arrow-left {
+    left: -0.5rem;
+  }
+
+  .carousel-arrow-right {
+    right: -0.5rem;
+  }
+}
+
+/* ===== Contact ===== */
+.contact-section {
+  padding: 5rem 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.contact-form-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 2.5rem;
+}
+
+.form-label-custom {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.form-control-custom {
+  width: 100%;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  padding: 0.75rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control-custom::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+.form-control-custom:focus {
+  border-color: var(--color-emerald);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.textarea-custom {
+  height: 128px;
+  resize: none;
+}
+
+.is-invalid-custom {
+  border-color: #EF4444;
+}
+
+.field-error {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: #EF4444;
+  margin-top: 0.4rem;
+  margin-bottom: 0;
+}
+
+.form-status {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.form-status-success {
+  color: var(--color-emerald);
+}
+
+.form-status-error {
+  color: #EF4444;
+}
+
+@media (max-width: 576px) {
+  .contact-form-wrapper {
+    padding: 1.75rem 1.25rem;
+  }
+}
