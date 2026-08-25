@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FiSend } from 'react-icons/fi';
-import { submitContactForm } from '../services/contactService';
+
+const WHATSAPP_NUMBER = '2348050426392'; // no + or leading 0, WhatsApp format
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -11,7 +12,6 @@ function Contact() {
   });
 
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState('idle'); // idle | submitting | success | error
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,7 +38,7 @@ function Contact() {
     return newErrors;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const validationErrors = validate();
@@ -48,15 +48,13 @@ function Contact() {
       return;
     }
 
-    setStatus('submitting');
+    const text = `Hello Oluwaseun, my name is ${formData.fullName}.%0A%0AEmail: ${formData.email}%0APhone: ${formData.phone || 'Not provided'}%0A%0AMessage: ${formData.message}`;
 
-    try {
-      await submitContactForm(formData);
-      setStatus('success');
-      setFormData({ fullName: '', email: '', phone: '', message: '' });
-    } catch {
-      setStatus('error');
-    }
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
+    setFormData({ fullName: '', email: '', phone: '', message: '' });
   };
 
   return (
@@ -134,23 +132,11 @@ function Contact() {
 
           <button
             type="submit"
-            className="btn-cta-filled w-100 d-flex align-items-center justify-content-center gap-2 mt-4 border-0"
-            disabled={status === 'submitting'}
+            className="btn-cta-filled w-100 d-flex align-items-center justify-content-center gap-2 mt-4"
           >
             <FiSend />
-            {status === 'submitting' ? 'Sending...' : 'Send message'}
+            Send via WhatsApp
           </button>
-
-          {status === 'success' && (
-            <p className="form-status form-status-success">
-              Thanks for reaching out! I'll get back to you soon.
-            </p>
-          )}
-          {status === 'error' && (
-            <p className="form-status form-status-error">
-              Something went wrong. Please try again.
-            </p>
-          )}
         </form>
       </div>
     </section>
