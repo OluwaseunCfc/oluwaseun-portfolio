@@ -1,7 +1,7 @@
 import portfolioImg from '../assets/portfolio snapshot.png';
 import gorideImg from '../assets/Goride snapshot.png';
 
-// const API_BASE_URL = 'http://localhost:8000/api'; // update once Django is live
+const API_BASE_URL = 'http://localhost:8000/api'; // i will update once Django is live
 
 const mockProjects = [
   {
@@ -12,6 +12,9 @@ const mockProjects = [
     image: portfolioImg,
     live_demo_url: 'https://oluwaseun-portfolio-two.vercel.app/',
     github_url: 'https://github.com/OluwaseunCfc/oluwaseun-portfolio',
+    category: 'Full Stack',
+    status: 'Published',
+    dateAdded: '2026-06-10',
   },
   {
     id: 2,
@@ -21,11 +24,13 @@ const mockProjects = [
     image: gorideImg,
     live_demo_url: 'https://goride-phi.vercel.app/',
     github_url: 'https://github.com/OluwaseunCfc/Goride',
+    category: 'Full Stack',
+    status: 'Published',
+    dateAdded: '2026-07-02',
   },
 ];
 
 export async function getProjects() {
-  // Simulates network delay so the loading state actually shows for now.
   return new Promise((resolve) => {
     setTimeout(() => resolve(mockProjects), 500);
   });
