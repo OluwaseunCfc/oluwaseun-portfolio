@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   FiGrid, FiFolder, FiCode, FiBriefcase, FiAward, FiBook,
   FiMessageSquare, FiMail, FiSettings, FiLogOut, FiBell,
-  FiChevronDown, FiSearch, FiPlus, FiEdit2, FiTrash2, FiMenu, FiStar, FiCalendar,
+  FiChevronDown, FiSearch, FiPlus, FiEdit2, FiTrash2, FiMenu, FiX, FiStar, FiCalendar,
 } from 'react-icons/fi';
 import { getProjects } from '../services/projectService';
 import services from '../data/services';
@@ -18,6 +18,17 @@ function AdminDashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All Status');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    if (!sidebarOpen) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setSidebarOpen(false);
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [sidebarOpen]);
 
   useEffect(() => {
     getProjects().then((data) => {
@@ -75,6 +86,13 @@ function AdminDashboard() {
             <h2>Oluwaseun Dev</h2>
             <p>Admin Dashboard</p>
           </div>
+          <button
+            className="admin-sidebar-close"
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Close navigation menu"
+          >
+            <FiX size={20} />
+          </button>
         </div>
 
         <nav className="admin-nav">
@@ -104,6 +122,14 @@ function AdminDashboard() {
           </button>
         </div>
       </aside>
+
+      {sidebarOpen && (
+        <button
+          className="admin-sidebar-backdrop"
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Close navigation menu"
+        />
+      )}
 
       <div className="admin-main">
         <header className="admin-topbar">

@@ -1039,6 +1039,10 @@ body {
   margin: 0;
 }
 
+.admin-sidebar-close {
+  display: none;
+}
+
 .admin-nav {
   display: flex;
   flex-direction: column;
@@ -1523,6 +1527,27 @@ body {
 
   .admin-sidebar.admin-sidebar-open {
     left: 0;
+  }
+
+  .admin-sidebar-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    padding: 0.25rem;
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+  }
+
+  .admin-sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    border: none;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.45);
   }
 
   .admin-search-box input {
