@@ -129,7 +129,7 @@ function AdminDashboard() {
         </header>
 
         <main className="admin-content">
-          <h1 className="admin-greeting">Good morning, Oluwaseun 👋</h1>
+          <h1 className="admin-greeting">Good morning, Oluwaseun </h1>
           <p className="admin-greeting-sub">Here's what's happening with your portfolio today.</p>
 
           <div className="admin-stats-grid">
