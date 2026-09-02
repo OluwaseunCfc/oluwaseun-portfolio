@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import {
   FiGrid, FiFolder, FiCode, FiBriefcase, FiAward, FiBook,
   FiMessageSquare, FiMail, FiSettings, FiLogOut, FiBell,
-  FiChevronDown, FiSearch, FiPlus, FiEdit2, FiTrash2, FiMenu, FiX, FiStar, FiCalendar,
+  FiChevronDown, FiSearch, FiPlus, FiEdit2, FiTrash2, FiMenu, FiStar, FiCalendar,
 } from 'react-icons/fi';
-import { getProjects } from '../services/projectService';
+import { getProjects, deleteProject } from '../services/projectService';
 import services from '../data/services';
 import toolbox from '../data/toolbox';
 import { logout } from '../services/authService';
+import ProjectFormModal from '../components/ProjectFormModal';
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -19,22 +20,19 @@ function AdminDashboard() {
   const [statusFilter, setStatusFilter] = useState('All Status');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    if (!sidebarOpen) return undefined;
+  const [showModal, setShowModal] = useState(false);
+  const [editingProject, setEditingProject] = useState(null);
 
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') setSidebarOpen(false);
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [sidebarOpen]);
-
-  useEffect(() => {
+  const loadProjects = () => {
+    setLoading(true);
     getProjects().then((data) => {
       setProjects(data);
       setLoading(false);
     });
+  };
+
+  useEffect(() => {
+    loadProjects();
   }, []);
 
   const handleLogout = () => {
@@ -42,19 +40,32 @@ function AdminDashboard() {
     navigate('/admin/login');
   };
 
-  const handleDelete = (id, title) => {
+  const handleDelete = async (id, title) => {
     const confirmed = window.confirm(`Delete "${title}"? This cannot be undone.`);
-    if (confirmed) {
+    if (!confirmed) return;
+
+    try {
+      await deleteProject(id);
       setProjects((prev) => prev.filter((p) => p.id !== id));
+    } catch {
+      window.alert('Failed to delete project. Please try again.');
     }
   };
 
   const handleAddProject = () => {
-    window.alert('Add Project form is coming soon — will be wired up once the backend is ready.');
+    setEditingProject(null);
+    setShowModal(true);
   };
 
-  const handleEditProject = (title) => {
-    window.alert(`Edit form for "${title}" is coming soon — will be wired up once the backend is ready.`);
+  const handleEditProject = (project) => {
+    setEditingProject(project);
+    setShowModal(true);
+  };
+
+  const handleModalSuccess = () => {
+    setShowModal(false);
+    setEditingProject(null);
+    loadProjects();
   };
 
   const filteredProjects = projects.filter((project) => {
@@ -86,13 +97,6 @@ function AdminDashboard() {
             <h2>Oluwaseun Dev</h2>
             <p>Admin Dashboard</p>
           </div>
-          <button
-            className="admin-sidebar-close"
-            onClick={() => setSidebarOpen(false)}
-            aria-label="Close navigation menu"
-          >
-            <FiX size={20} />
-          </button>
         </div>
 
         <nav className="admin-nav">
@@ -123,14 +127,6 @@ function AdminDashboard() {
         </div>
       </aside>
 
-      {sidebarOpen && (
-        <button
-          className="admin-sidebar-backdrop"
-          onClick={() => setSidebarOpen(false)}
-          aria-label="Close navigation menu"
-        />
-      )}
-
       <div className="admin-main">
         <header className="admin-topbar">
           <button className="admin-menu-toggle d-lg-none" onClick={() => setSidebarOpen(!sidebarOpen)}>
@@ -155,7 +151,7 @@ function AdminDashboard() {
         </header>
 
         <main className="admin-content">
-          <h1 className="admin-greeting">Good morning, Oluwaseun </h1>
+          <h1 className="admin-greeting">Good morning, Oluwaseun 👋</h1>
           <p className="admin-greeting-sub">Here's what's happening with your portfolio today.</p>
 
           <div className="admin-stats-grid">
@@ -263,12 +259,12 @@ function AdminDashboard() {
                             {project.status}
                           </span>
                         </td>
-                        <td>{project.dateAdded}</td>
+                        <td>{project.date_added}</td>
                         <td>
                           <div className="admin-action-buttons">
                             <button
                               className="admin-icon-action"
-                              onClick={() => handleEditProject(project.title)}
+                              onClick={() => handleEditProject(project)}
                               aria-label="Edit project"
                             >
                               <FiEdit2 size={15} />
@@ -322,13 +318,21 @@ function AdminDashboard() {
               </div>
               <div>
                 <p className="admin-stat-label">Last Updated</p>
-                <h3>{projects[projects.length - 1]?.dateAdded || '—'}</h3>
+                <h3>{projects[projects.length - 1]?.date_added || '—'}</h3>
                 <small>{projects[projects.length - 1]?.title || 'No projects yet'}</small>
               </div>
             </div>
           </div>
         </main>
       </div>
+
+      {showModal && (
+        <ProjectFormModal
+          existingProject={editingProject}
+          onClose={() => setShowModal(false)}
+          onSuccess={handleModalSuccess}
+        />
+      )}
     </div>
   );
 }

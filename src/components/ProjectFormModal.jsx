@@ -76,6 +76,7 @@ function ProjectFormModal({ existingProject, onClose, onSuccess }) {
       }
       onSuccess();
     } catch (err) {
+      console.log('Actual error:', err.message);
       setError('Something went wrong. Please check your inputs and try again.');
     } finally {
       setSubmitting(false);

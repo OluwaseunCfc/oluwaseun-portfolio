@@ -1554,3 +1554,70 @@ body {
     width: 120px;
   }
 }
+
+/* ===== Project Form Modal ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1.5rem;
+}
+
+.modal-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1.75rem;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.modal-header h2 {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: flex;
+
+}
+
+.modal-close-btn:hover {
+  color: var(--color-text);
+}
+
+.modal-image-preview {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-top: 0.75rem;
+  border: 1px solid var(--color-border);
+}
+
+.btn-cta-filled{
+  border: none;
+}
+.btn-cta-filled:hover{
+  opacity: 0.5;
+}
