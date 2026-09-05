@@ -5,7 +5,7 @@ import {
   FiMessageSquare, FiMail, FiSettings, FiLogOut, FiBell,
   FiChevronDown, FiSearch, FiPlus, FiEdit2, FiTrash2, FiMenu, FiStar, FiCalendar,
 } from 'react-icons/fi';
-import { getProjects, deleteProject } from '../services/projectService';
+import { getAllProjectsForAdmin, deleteProject } from '../services/projectService';
 import services from '../data/services';
 import toolbox from '../data/toolbox';
 import { logout } from '../services/authService';
@@ -23,13 +23,13 @@ function AdminDashboard() {
   const [showModal, setShowModal] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
 
-  const loadProjects = () => {
-    setLoading(true);
-    getProjects().then((data) => {
-      setProjects(data);
-      setLoading(false);
-    });
-  };
+ const loadProjects = () => {
+  setLoading(true);
+  getAllProjectsForAdmin().then((data) => {
+    setProjects(data);
+    setLoading(false);
+  });
+};
 
   useEffect(() => {
     loadProjects();

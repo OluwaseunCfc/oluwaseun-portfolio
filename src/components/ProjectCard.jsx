@@ -1,6 +1,10 @@
 import { FiExternalLink, FiGithub } from 'react-icons/fi';
 
 function ProjectCard({ project }) {
+  const techList = project.tech_stack
+    ? project.tech_stack.split(',').map((tech) => tech.trim()).filter(Boolean)
+    : [];
+
   return (
     <div className="project-card h-100">
       <div className="project-image-wrapper">
@@ -10,6 +14,16 @@ function ProjectCard({ project }) {
       <div className="project-content">
         <h3>{project.title}</h3>
         <p>{project.description}</p>
+
+        {techList.length > 0 && (
+          <div className="project-tech-pills">
+            {techList.map((tech) => (
+              <span key={tech} className="tech-pill">
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
 
         <div className="project-buttons d-flex gap-2">
           <a
@@ -21,7 +35,6 @@ function ProjectCard({ project }) {
             <FiExternalLink size={16} />
             Live Demo
           </a>
-          
           <a
             href={project.github_url}
             target="_blank"

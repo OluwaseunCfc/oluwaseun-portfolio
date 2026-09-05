@@ -12,6 +12,16 @@ export async function getProjects() {
   return response.json();
 }
 
+export async function getFeaturedProjects() {
+  const response = await fetch(`${API_BASE_URL}/projects/?featured=true`);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch featured projects');
+  }
+
+  return response.json();
+}
+
 export async function createProject(formData) {
   const response = await apiFetch('/projects/', {
     method: 'POST',
@@ -50,4 +60,14 @@ export async function deleteProject(id) {
   }
 
   return true;
+}
+
+export async function getAllProjectsForAdmin() {
+  const response = await apiFetch('/projects/');
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch projects');
+  }
+
+  return response.json();
 }

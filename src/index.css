@@ -1621,3 +1621,59 @@ body {
 .btn-cta-filled:hover{
   opacity: 0.5;
 }
+
+/* ===== Project Form Modal extras ===== */
+.modal-hint {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 0.35rem;
+}
+
+.modal-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.modal-checkbox-row input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-emerald);
+  cursor: pointer;
+}
+
+.modal-checkbox-row label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  cursor: pointer;
+  margin: 0;
+}
+
+/* ===== Project Tech Pills ===== */
+.project-tech-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.tech-pill {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--color-emerald);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+}
+
+/* ===== All Projects Page ===== */
+.all-projects-page {
+  padding: 6rem 1.25rem 5rem;
+  max-width: 1320px;
+  margin: 0 auto;
+}

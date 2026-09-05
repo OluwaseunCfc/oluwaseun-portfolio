@@ -7,6 +7,7 @@ const Home = lazy(() => import('./pages/Home'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const AdminLogin = lazy(() => import('./pages/AdminLogin'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const AllProjects = lazy(() => import('./pages/AllProjects'));
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -28,6 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/projects" element={<AllProjects />} />
         <Route
           path="/admin/dashboard"
           element={

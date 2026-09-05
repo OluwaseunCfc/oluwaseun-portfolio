@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getProjects } from '../services/projectService';
+import { Link } from 'react-router-dom';
+import { getFeaturedProjects } from '../services/projectService';
 import ProjectCard from '../components/ProjectCard';
 
 function Projects() {
@@ -8,8 +9,8 @@ function Projects() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    getProjects()
-      .then((data) => setProjects(data))
+    getFeaturedProjects()
+      .then((data) => setProjects(data.slice(0, 4)))
       .catch(() => setError('Could not load projects right now.'))
       .finally(() => setLoading(false));
   }, []);
@@ -27,13 +28,21 @@ function Projects() {
       {error && <p className="text-center projects-status">{error}</p>}
 
       {!loading && !error && (
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-          {projects.map((project) => (
-            <div className="col" key={project.id}>
-              <ProjectCard project={project} />
-            </div>
-          ))}
-        </div>
+        <>
+          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            {projects.map((project) => (
+              <div className="col" key={project.id}>
+                <ProjectCard project={project} />
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-5">
+            <Link to="/projects" className="btn-cta-outline">
+              View More Projects
+            </Link>
+          </div>
+        </>
       )}
     </section>
   );
