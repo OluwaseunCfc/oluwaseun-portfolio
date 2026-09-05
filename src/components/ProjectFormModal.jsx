@@ -12,6 +12,8 @@ function ProjectFormModal({ existingProject, onClose, onSuccess }) {
     github_url: '',
     category: '',
     status: 'Draft',
+    tech_stack: '',
+    is_featured: false,
   });
 
   const [imageFile, setImageFile] = useState(null);
@@ -28,14 +30,19 @@ function ProjectFormModal({ existingProject, onClose, onSuccess }) {
         github_url: existingProject.github_url || '',
         category: existingProject.category || '',
         status: existingProject.status || 'Draft',
+        tech_stack: existingProject.tech_stack || '',
+        is_featured: existingProject.is_featured || false,
       });
       setImagePreview(existingProject.image || null);
     }
   }, [existingProject]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormValues((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   };
 
   const handleImageChange = (e) => {
@@ -64,6 +71,8 @@ function ProjectFormModal({ existingProject, onClose, onSuccess }) {
     data.append('github_url', formValues.github_url);
     data.append('category', formValues.category);
     data.append('status', formValues.status);
+    data.append('tech_stack', formValues.tech_stack);
+    data.append('is_featured', formValues.is_featured);
     if (imageFile) {
       data.append('image', imageFile);
     }
@@ -131,6 +140,19 @@ function ProjectFormModal({ existingProject, onClose, onSuccess }) {
           </div>
 
           <div className="mb-3">
+            <label className="form-label-custom">Tech Stack</label>
+            <input
+              type="text"
+              name="tech_stack"
+              className="form-control-custom"
+              value={formValues.tech_stack}
+              onChange={handleChange}
+              placeholder="React, Django, MySQL"
+            />
+            <small className="modal-hint">Separate each technology with a comma.</small>
+          </div>
+
+          <div className="mb-3">
             <label className="form-label-custom">Live Demo URL</label>
             <input
               type="url"
@@ -176,6 +198,17 @@ function ProjectFormModal({ existingProject, onClose, onSuccess }) {
               <option value="Draft">Draft</option>
               <option value="Published">Published</option>
             </select>
+          </div>
+
+          <div className="mb-3 modal-checkbox-row">
+            <input
+              type="checkbox"
+              id="is_featured"
+              name="is_featured"
+              checked={formValues.is_featured}
+              onChange={handleChange}
+            />
+            <label htmlFor="is_featured">Feature this project on the homepage</label>
           </div>
 
           {error && <p className="field-error">{error}</p>}
