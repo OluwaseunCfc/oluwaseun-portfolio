@@ -1,3 +1,5 @@
+import { apiFetch } from './apiClient';
+
 const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
 export async function getProjects() {
@@ -11,13 +13,8 @@ export async function getProjects() {
 }
 
 export async function createProject(formData) {
-  const token = localStorage.getItem('authToken');
-
-  const response = await fetch(`${API_BASE_URL}/projects/`, {
+  const response = await apiFetch('/projects/', {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
     body: formData,
   });
 
@@ -30,13 +27,8 @@ export async function createProject(formData) {
 }
 
 export async function updateProject(id, formData) {
-  const token = localStorage.getItem('authToken');
-
-  const response = await fetch(`${API_BASE_URL}/projects/${id}/`, {
+  const response = await apiFetch(`/projects/${id}/`, {
     method: 'PATCH',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
     body: formData,
   });
 
@@ -49,13 +41,8 @@ export async function updateProject(id, formData) {
 }
 
 export async function deleteProject(id) {
-  const token = localStorage.getItem('authToken');
-
-  const response = await fetch(`${API_BASE_URL}/projects/${id}/`, {
+  const response = await apiFetch(`/projects/${id}/`, {
     method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   });
 
   if (!response.ok) {
