@@ -3,16 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import {
   FiGrid, FiFolder, FiCode, FiBriefcase, FiAward, FiBook,
   FiMessageSquare, FiMail, FiSettings, FiLogOut, FiBell,
-  FiChevronDown, FiSearch, FiPlus, FiEdit2, FiTrash2, FiMenu, FiStar, FiCalendar,
+  FiChevronDown, FiSearch, FiPlus, FiEdit2, FiTrash2, FiMenu, FiStar, FiCalendar, FiImage,
 } from 'react-icons/fi';
 import { getAllProjectsForAdmin, deleteProject } from '../services/projectService';
 import services from '../data/services';
 import toolbox from '../data/toolbox';
 import { logout } from '../services/authService';
 import ProjectFormModal from '../components/ProjectFormModal';
+import ExperienceManager from '../components/ExperienceManager';
+import GalleryManager from '../components/GalleryManager';
 
 function AdminDashboard() {
   const navigate = useNavigate();
+
+  const [activeTab, setActiveTab] = useState('Dashboard');
 
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,13 +27,13 @@ function AdminDashboard() {
   const [showModal, setShowModal] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
 
- const loadProjects = () => {
-  setLoading(true);
-  getAllProjectsForAdmin().then((data) => {
-    setProjects(data);
-    setLoading(false);
-  });
-};
+  const loadProjects = () => {
+    setLoading(true);
+    getAllProjectsForAdmin().then((data) => {
+      setProjects(data);
+      setLoading(false);
+    });
+  };
 
   useEffect(() => {
     loadProjects();
@@ -78,15 +82,18 @@ function AdminDashboard() {
   const draftCount = projects.filter((p) => p.status === 'Draft').length;
 
   const navItems = [
-    { icon: FiGrid, label: 'Dashboard', active: true },
+    { icon: FiGrid, label: 'Dashboard' },
     { icon: FiFolder, label: 'Projects' },
+    { icon: FiAward, label: 'Experience' },
+    { icon: FiImage, label: 'Gallery' },
     { icon: FiCode, label: 'Skills' },
     { icon: FiBriefcase, label: 'Services' },
-    { icon: FiAward, label: 'Experience' },
     { icon: FiBook, label: 'Education' },
     { icon: FiMessageSquare, label: 'Testimonials' },
     { icon: FiMail, label: 'Messages' },
   ];
+
+  const activeNavItems = ['Dashboard', 'Projects', 'Experience', 'Gallery'];
 
   return (
     <div className="admin-layout">
@@ -102,11 +109,14 @@ function AdminDashboard() {
         <nav className="admin-nav">
           {navItems.map((item) => {
             const Icon = item.icon;
+            const isActive = activeTab === item.label;
+            const isEnabled = activeNavItems.includes(item.label);
             return (
               <button
                 key={item.label}
-                className={`admin-nav-item ${item.active ? 'active' : ''}`}
-                disabled={!item.active}
+                className={`admin-nav-item ${isActive ? 'active' : ''}`}
+                disabled={!isEnabled}
+                onClick={() => setActiveTab(item.label)}
               >
                 <Icon size={18} />
                 {item.label}
@@ -151,178 +161,189 @@ function AdminDashboard() {
         </header>
 
         <main className="admin-content">
-          <h1 className="admin-greeting">Good morning, Oluwaseun 👋</h1>
-          <p className="admin-greeting-sub">Here's what's happening with your portfolio today.</p>
+          {activeTab === 'Dashboard' && (
+            <>
+              <h1 className="admin-greeting">Good morning, Oluwaseun </h1>
+              <p className="admin-greeting-sub">Here's what's happening with your portfolio today.</p>
 
-          <div className="admin-stats-grid">
-            <div className="admin-stat-card">
-              <div className="admin-stat-icon admin-stat-icon-emerald">
-                <FiFolder size={20} />
-              </div>
-              <div>
-                <p className="admin-stat-label">Projects</p>
-                <h3>{projects.length}</h3>
-              </div>
-            </div>
-
-            <div className="admin-stat-card">
-              <div className="admin-stat-icon admin-stat-icon-blue">
-                <FiCode size={20} />
-              </div>
-              <div>
-                <p className="admin-stat-label">Skills</p>
-                <h3>{toolbox.length}</h3>
-              </div>
-            </div>
-
-            <div className="admin-stat-card">
-              <div className="admin-stat-icon admin-stat-icon-purple">
-                <FiMail size={20} />
-              </div>
-              <div>
-                <p className="admin-stat-label">Messages</p>
-                <h3>0</h3>
-              </div>
-            </div>
-
-            <div className="admin-stat-card">
-              <div className="admin-stat-icon admin-stat-icon-amber">
-                <FiBriefcase size={20} />
-              </div>
-              <div>
-                <p className="admin-stat-label">Services</p>
-                <h3>{services.length}</h3>
-              </div>
-            </div>
-          </div>
-
-          <div className="admin-table-card">
-            <div className="admin-table-header">
-              <h2>Projects Overview</h2>
-
-              <div className="admin-table-controls">
-                <div className="admin-search-box">
-                  <FiSearch size={16} />
-                  <input
-                    type="text"
-                    placeholder="Search projects..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
+              <div className="admin-stats-grid">
+                <div className="admin-stat-card">
+                  <div className="admin-stat-icon admin-stat-icon-emerald">
+                    <FiFolder size={20} />
+                  </div>
+                  <div>
+                    <p className="admin-stat-label">Projects</p>
+                    <h3>{projects.length}</h3>
+                  </div>
                 </div>
 
-                <select
-                  className="admin-status-select"
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                >
-                  <option>All Status</option>
-                  <option>Published</option>
-                  <option>Draft</option>
-                </select>
+                <div className="admin-stat-card">
+                  <div className="admin-stat-icon admin-stat-icon-blue">
+                    <FiCode size={20} />
+                  </div>
+                  <div>
+                    <p className="admin-stat-label">Skills</p>
+                    <h3>{toolbox.length}</h3>
+                  </div>
+                </div>
 
-                <button className="admin-add-btn" onClick={handleAddProject}>
-                  <FiPlus size={16} />
-                  Add New Project
-                </button>
+                <div className="admin-stat-card">
+                  <div className="admin-stat-icon admin-stat-icon-purple">
+                    <FiMail size={20} />
+                  </div>
+                  <div>
+                    <p className="admin-stat-label">Messages</p>
+                    <h3>0</h3>
+                  </div>
+                </div>
+
+                <div className="admin-stat-card">
+                  <div className="admin-stat-icon admin-stat-icon-amber">
+                    <FiBriefcase size={20} />
+                  </div>
+                  <div>
+                    <p className="admin-stat-label">Services</p>
+                    <h3>{services.length}</h3>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            {loading ? (
-              <p className="admin-table-status">Loading projects...</p>
-            ) : (
-              <div className="admin-table-wrapper">
-                <table className="admin-table">
-                  <thead>
-                    <tr>
-                      <th>Project</th>
-                      <th>Category</th>
-                      <th>Status</th>
-                      <th>Date Added</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredProjects.map((project) => (
-                      <tr key={project.id}>
-                        <td>
-                          <div className="admin-project-cell">
-                            <img src={project.image} alt={project.title} />
-                            <span>{project.title}</span>
-                          </div>
-                        </td>
-                        <td>
-                          <span className="admin-category-badge">{project.category}</span>
-                        </td>
-                        <td>
-                          <span className={`admin-status-badge ${project.status === 'Published' ? 'published' : 'draft'}`}>
-                            {project.status}
-                          </span>
-                        </td>
-                        <td>{project.date_added}</td>
-                        <td>
-                          <div className="admin-action-buttons">
-                            <button
-                              className="admin-icon-action"
-                              onClick={() => handleEditProject(project)}
-                              aria-label="Edit project"
-                            >
-                              <FiEdit2 size={15} />
-                            </button>
-                            <button
-                              className="admin-icon-action admin-icon-action-delete"
-                              onClick={() => handleDelete(project.id, project.title)}
-                              aria-label="Delete project"
-                            >
-                              <FiTrash2 size={15} />
-                            </button>
-                          </div>
-                        </td>
+              <div className="admin-summary-grid">
+                <div className="admin-summary-card">
+                  <div className="admin-stat-icon admin-stat-icon-emerald">
+                    <FiFolder size={20} />
+                  </div>
+                  <div>
+                    <p className="admin-stat-label">Total Projects</p>
+                    <h3>{projects.length}</h3>
+                    <small>{publishedCount} Published • {draftCount} Draft</small>
+                  </div>
+                </div>
+
+                <div className="admin-summary-card">
+                  <div className="admin-stat-icon admin-stat-icon-amber">
+                    <FiStar size={20} />
+                  </div>
+                  <div>
+                    <p className="admin-stat-label">Featured Projects</p>
+                    <h3>{projects.filter((p) => p.is_featured).length}</h3>
+                    <small>Showcased on homepage</small>
+                  </div>
+                </div>
+
+                <div className="admin-summary-card">
+                  <div className="admin-stat-icon admin-stat-icon-blue">
+                    <FiCalendar size={20} />
+                  </div>
+                  <div>
+                    <p className="admin-stat-label">Last Updated</p>
+                    <h3>{projects[0]?.date_added || '—'}</h3>
+                    <small>{projects[0]?.title || 'No projects yet'}</small>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+
+          {activeTab === 'Projects' && (
+            <div className="admin-table-card">
+              <div className="admin-table-header">
+                <h2>Projects Overview</h2>
+
+                <div className="admin-table-controls">
+                  <div className="admin-search-box">
+                    <FiSearch size={16} />
+                    <input
+                      type="text"
+                      placeholder="Search projects..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </div>
+
+                  <select
+                    className="admin-status-select"
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                  >
+                    <option>All Status</option>
+                    <option>Published</option>
+                    <option>Draft</option>
+                  </select>
+
+                  <button className="admin-add-btn" onClick={handleAddProject}>
+                    <FiPlus size={16} />
+                    Add New Project
+                  </button>
+                </div>
+              </div>
+
+              {loading ? (
+                <p className="admin-table-status">Loading projects...</p>
+              ) : (
+                <div className="admin-table-wrapper">
+                  <table className="admin-table">
+                    <thead>
+                      <tr>
+                        <th>Project</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Featured</th>
+                        <th>Date Added</th>
+                        <th>Actions</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-                {filteredProjects.length === 0 && (
-                  <p className="admin-table-status">No projects match your search.</p>
-                )}
-              </div>
-            )}
-          </div>
-
-          <div className="admin-summary-grid">
-            <div className="admin-summary-card">
-              <div className="admin-stat-icon admin-stat-icon-emerald">
-                <FiFolder size={20} />
-              </div>
-              <div>
-                <p className="admin-stat-label">Total Projects</p>
-                <h3>{projects.length}</h3>
-                <small>{publishedCount} Published • {draftCount} Draft</small>
-              </div>
+                    </thead>
+                    <tbody>
+                      {filteredProjects.map((project) => (
+                        <tr key={project.id}>
+                          <td>
+                            <div className="admin-project-cell">
+                              <img src={project.image} alt={project.title} />
+                              <span>{project.title}</span>
+                            </div>
+                          </td>
+                          <td>
+                            <span className="admin-category-badge">{project.category}</span>
+                          </td>
+                          <td>
+                            <span className={`admin-status-badge ${project.status === 'Published' ? 'published' : 'draft'}`}>
+                              {project.status}
+                            </span>
+                          </td>
+                          <td>{project.is_featured ? '⭐' : '—'}</td>
+                          <td>{project.date_added}</td>
+                          <td>
+                            <div className="admin-action-buttons">
+                              <button
+                                className="admin-icon-action"
+                                onClick={() => handleEditProject(project)}
+                                aria-label="Edit project"
+                              >
+                                <FiEdit2 size={15} />
+                              </button>
+                              <button
+                                className="admin-icon-action admin-icon-action-delete"
+                                onClick={() => handleDelete(project.id, project.title)}
+                                aria-label="Delete project"
+                              >
+                                <FiTrash2 size={15} />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  {filteredProjects.length === 0 && (
+                    <p className="admin-table-status">No projects match your search.</p>
+                  )}
+                </div>
+              )}
             </div>
+          )}
 
-            <div className="admin-summary-card">
-              <div className="admin-stat-icon admin-stat-icon-amber">
-                <FiStar size={20} />
-              </div>
-              <div>
-                <p className="admin-stat-label">Featured Projects</p>
-                <h3>{publishedCount}</h3>
-                <small>Showcased on homepage</small>
-              </div>
-            </div>
-
-            <div className="admin-summary-card">
-              <div className="admin-stat-icon admin-stat-icon-blue">
-                <FiCalendar size={20} />
-              </div>
-              <div>
-                <p className="admin-stat-label">Last Updated</p>
-                <h3>{projects[projects.length - 1]?.date_added || '—'}</h3>
-                <small>{projects[projects.length - 1]?.title || 'No projects yet'}</small>
-              </div>
-            </div>
-          </div>
+          {activeTab === 'Experience' && <ExperienceManager />}
+          {activeTab === 'Gallery' && <GalleryManager />}
         </main>
       </div>
 

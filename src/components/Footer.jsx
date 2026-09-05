@@ -1,17 +1,31 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
 import { FaFacebook, FaInstagram, FaLinkedin, FaGithub, FaXTwitter } from 'react-icons/fa6';
 import services from '../data/services';
 
 function Footer() {
   const year = new Date().getFullYear();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleAnchorClick = (e, id) => {
+    e.preventDefault();
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: id } });
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const quickLinks = [
-    { label: 'Home', href: '#home' },
-    { label: 'About', href: '#about' },
-    { label: 'Services', href: '#services' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'Home', id: 'home' },
+    { label: 'About', id: 'about' },
+    { label: 'Services', id: 'services' },
+    { label: 'Projects', id: 'projects' },
+    { label: 'Experience', path: '/experience', type: 'page' },
+    { label: 'Gallery', path: '/gallery', type: 'page' },
+    { label: 'Contact', id: 'contact' },
   ];
 
   const socials = [
@@ -27,9 +41,9 @@ function Footer() {
       <div className="container">
         <div className="row g-4">
           <div className="col-12 col-md-4">
-            <Link to="#home" className="footer-logo">
+            <a href="#home" className="footer-logo" onClick={(e) => handleAnchorClick(e, 'home')}>
               Oluwaseun Dev
-            </Link>
+            </a>
             <p className="footer-bio">
               Full stack web developer creating innovative digital solutions
               with clean code and modern design. Let's collaborate.
@@ -69,11 +83,19 @@ function Footer() {
           <div className="col-6 col-md-4">
             <h4 className="footer-heading">Quick Links</h4>
             <ul className="footer-links list-unstyled">
-              {quickLinks.map((link) => (
-                <li key={link.label}>
-                  <Link to={link.href}>{link.label}</Link>
-                </li>
-              ))}
+              {quickLinks.map((link) =>
+                link.type === 'page' ? (
+                  <li key={link.label}>
+                    <Link to={link.path}>{link.label}</Link>
+                  </li>
+                ) : (
+                  <li key={link.label}>
+                    <a href={`#${link.id}`} onClick={(e) => handleAnchorClick(e, link.id)}>
+                      {link.label}
+                    </a>
+                  </li>
+                )
+              )}
             </ul>
           </div>
 

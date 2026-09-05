@@ -8,6 +8,8 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const AdminLogin = lazy(() => import('./pages/AdminLogin'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const AllProjects = lazy(() => import('./pages/AllProjects'));
+const Experience = lazy(() => import('./pages/Experience'));
+const Gallery = lazy(() => import('./pages/Gallery'));
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -28,8 +30,10 @@ function App() {
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/projects" element={<AllProjects />} />
+        <Route path="/experience" element={<Experience />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
         <Route
           path="/admin/dashboard"
           element={
