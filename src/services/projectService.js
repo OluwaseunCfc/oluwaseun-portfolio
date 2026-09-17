@@ -1,9 +1,9 @@
 import { apiFetch } from './apiClient';
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+// const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
 export async function getProjects() {
-  const response = await fetch(`${API_BASE_URL}/projects/`);
+  const response = await apiFetch('/projects/');
 
   if (!response.ok) {
     throw new Error('Failed to fetch projects');
@@ -13,7 +13,7 @@ export async function getProjects() {
 }
 
 export async function getFeaturedProjects() {
-  const response = await fetch(`${API_BASE_URL}/projects/?featured=true`);
+  const response = await apiFetch('/projects/?featured=true');
 
   if (!response.ok) {
     throw new Error('Failed to fetch featured projects');
