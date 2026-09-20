@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   FiGrid, FiFolder, FiCode, FiBriefcase, FiAward, FiBook,
   FiMessageSquare, FiMail, FiSettings, FiLogOut, FiBell,
-  FiChevronDown, FiSearch, FiPlus, FiEdit2, FiTrash2, FiMenu, FiStar, FiCalendar, FiImage,
+  FiChevronDown, FiSearch, FiPlus, FiEdit2, FiTrash2, FiMenu, FiX, FiStar, FiCalendar, FiImage,
 } from 'react-icons/fi';
 import { getAllProjectsForAdmin, deleteProject } from '../services/projectService';
 import services from '../data/services';
@@ -72,6 +72,11 @@ function AdminDashboard() {
     loadProjects();
   };
 
+  const handleNavClick = (label) => {
+    setActiveTab(label);
+    setSidebarOpen(false);
+  };
+
   const filteredProjects = projects.filter((project) => {
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'All Status' || project.status === statusFilter;
@@ -97,6 +102,13 @@ function AdminDashboard() {
 
   return (
     <div className="admin-layout">
+      {sidebarOpen && (
+        <div
+          className="admin-sidebar-overlay d-lg-none"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
+
       <aside className={`admin-sidebar ${sidebarOpen ? 'admin-sidebar-open' : ''}`}>
         <div className="admin-sidebar-brand">
           <div className="admin-logo-mark-sm">O</div>
@@ -104,6 +116,13 @@ function AdminDashboard() {
             <h2>Oluwaseun Dev</h2>
             <p>Admin Dashboard</p>
           </div>
+          <button
+            className="admin-sidebar-close d-lg-none"
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Close menu"
+          >
+            <FiX size={20} />
+          </button>
         </div>
 
         <nav className="admin-nav">
@@ -116,7 +135,7 @@ function AdminDashboard() {
                 key={item.label}
                 className={`admin-nav-item ${isActive ? 'active' : ''}`}
                 disabled={!isEnabled}
-                onClick={() => setActiveTab(item.label)}
+                onClick={() => handleNavClick(item.label)}
               >
                 <Icon size={18} />
                 {item.label}
@@ -163,7 +182,7 @@ function AdminDashboard() {
         <main className="admin-content">
           {activeTab === 'Dashboard' && (
             <>
-              <h1 className="admin-greeting">Good morning, Oluwaseun </h1>
+              <h1 className="admin-greeting">Good morning, Oluwaseun 👋</h1>
               <p className="admin-greeting-sub">Here's what's happening with your portfolio today.</p>
 
               <div className="admin-stats-grid">
